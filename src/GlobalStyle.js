@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
-import "modern-normalize";
+import { createGlobalStyle } from 'styled-components';
+import 'modern-normalize';
 
 export const GlobalStyle = createGlobalStyle`
 body {
@@ -11,7 +11,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-color: #ccc;
 }
 
 code {
