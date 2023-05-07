@@ -11,3 +11,8 @@ export const Container = styled.div`
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   background-color: ${pallete.white};
 `;
+
+export const MainSection = styled.main`
+  display: flex;
+  width: 100%;
+`;
