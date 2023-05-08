@@ -1,9 +1,17 @@
 import styled from 'styled-components';
-import { pallete } from '../../helpers/variables';
+import { animation, pallete } from '../../helpers/variables';
 
 export const Item = styled.li`
   padding: 10px 14px;
   border-bottom: 1px solid ${pallete.gray};
+  cursor: pointer;
+
+  transition: background-color ${animation};
+
+  &:hover,
+  &:focus {
+    background-color: ${pallete.accent};
+  }
 `;
 
 export const NoteTitle = styled.p`

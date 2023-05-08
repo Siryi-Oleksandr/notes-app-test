@@ -1,24 +1,30 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import {
   NoteDate,
   NoteDesc,
   NoteDetailsWrapper,
   NoteTitle,
 } from './Workspace.styled';
-import { formatDate } from '../../helpers/dateService';
-
-const date = 1683488657802;
-const title = 'Finish project';
-const description =
-  'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione harum aque.';
+import { formatDate } from '../../services/dateService';
+import AddNotesForm from '../AddNotesForm/AddNotesForm';
+import localeContext from '../../context/localeContext';
 
 function Workspace() {
+  const L_Context = useContext(localeContext);
+  const { showedNote, isAddNote } = L_Context;
+
   return (
-    <NoteDetailsWrapper>
-      <NoteDate>{formatDate(date)}</NoteDate>
-      <NoteTitle>{title}</NoteTitle>
-      <NoteDesc>{description}</NoteDesc>
-    </NoteDetailsWrapper>
+    <>
+      {isAddNote ? (
+        <AddNotesForm />
+      ) : (
+        <NoteDetailsWrapper>
+          <NoteDate>{formatDate(showedNote.date)}</NoteDate>
+          <NoteTitle>{showedNote.title}</NoteTitle>
+          <NoteDesc>{showedNote.description}</NoteDesc>
+        </NoteDetailsWrapper>
+      )}
+    </>
   );
 }
 

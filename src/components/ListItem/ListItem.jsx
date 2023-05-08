@@ -1,6 +1,6 @@
-import React from 'react';
-import { truncateTitle, truncateDesc } from '../../helpers/textService';
-import { formatShortDate } from '../../helpers/dateService';
+import React, { useContext } from 'react';
+import { truncateTitle, truncateDesc } from '../../services/textService';
+import { formatShortDate } from '../../services/dateService';
 import {
   DescWrapper,
   Item,
@@ -8,15 +8,19 @@ import {
   NoteDesc,
   NoteTitle,
 } from './ListItem.styled';
+import localeContext from '../../context/localeContext';
 
-const date = 1683488657802;
-const title = 'Finish project onsectetur adipisicing elit. Ratione';
-const description =
-  'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione harum aque.';
+// const date = 1683488657802;
+// const title = 'Finish project onsectetur adipisicing elit. Ratione';
+// const description =
+//   'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione harum aque.';
 
-function ListItem() {
+function ListItem({ note }) {
+  const { date, title, description } = note;
+  const LS_Context = useContext(localeContext);
+  const { showNote } = LS_Context;
   return (
-    <Item>
+    <Item onClick={() => showNote(note)}>
       <NoteTitle>{truncateTitle(title)}</NoteTitle>
       <DescWrapper>
         <NoteDesc>{formatShortDate(date)}</NoteDesc>
