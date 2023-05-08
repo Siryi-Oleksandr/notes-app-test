@@ -9,18 +9,22 @@ import {
   NoteTitle,
 } from './ListItem.styled';
 import localeContext from '../../context/localeContext';
-
-// const date = 1683488657802;
-// const title = 'Finish project onsectetur adipisicing elit. Ratione';
-// const description =
-//   'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione harum aque.';
+import { pallete } from '../../helpers/variables';
 
 function ListItem({ note }) {
-  const { date, title, description } = note;
+  const { id, date, title, description } = note;
   const LS_Context = useContext(localeContext);
-  const { showNote } = LS_Context;
+  const { showNote, showedNote } = LS_Context;
+
+  const isActiveNote = id === showedNote.id;
+
   return (
-    <Item onClick={() => showNote(note)}>
+    <Item
+      style={{
+        backgroundColor: isActiveNote ? pallete.ligthActive : 'transparent',
+      }}
+      onClick={() => showNote(note)}
+    >
       <NoteTitle>{truncateTitle(title)}</NoteTitle>
       <DescWrapper>
         <NoteDesc>{formatShortDate(date)}</NoteDesc>
