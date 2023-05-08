@@ -19,6 +19,9 @@ function AddNotesForm() {
     const title = form.elements.title.value;
     const description = form.elements.description.value;
     const date = new Date();
+    if (!title) {
+      return alert('Please write smth');
+    }
     addNote({ id: nanoid(), title, description, date: date.getTime() });
     form.reset();
   };

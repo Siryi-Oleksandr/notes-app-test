@@ -8,7 +8,7 @@ export const HeaderStyled = styled.header`
   gap: 16px;
   width: 100%;
   align-items: center;
-  background-color: ${pallete.gray};
+  background-color: ${pallete.ligthGray};
 
   @media (min-width: 321px) {
   }

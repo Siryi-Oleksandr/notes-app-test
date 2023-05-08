@@ -2,10 +2,11 @@ import localeContext from './localeContext';
 import React, { useEffect, useState } from 'react';
 import data from '../notes.json';
 
-const notes = data;
+// const notes = data;
 
 function LocaleProvider({ children }) {
   // const DB = process.env.REACT_APP_DB ?? 'indexed';
+  const [notes, setNotes] = useState(data || []);
   const [showedNote, setShowedNote] = useState(() => notes[0]);
   const [isAddNote, setIsAddNote] = useState(false);
   const [filter, setFilter] = useState('');
@@ -19,7 +20,7 @@ function LocaleProvider({ children }) {
 
   useEffect(() => {
     console.log('notes changed'); // TODO add notes when changed
-  }, [showedNote]);
+  }, [showedNote, notes]);
 
   const addNote = data => {
     notes.push(data);
@@ -42,6 +43,11 @@ function LocaleProvider({ children }) {
     return visibleNotes;
   };
 
+  const deleteNote = () => {
+    const actualNotes = notes.filter(note => note.id !== showedNote.id);
+    setNotes(actualNotes);
+  };
+
   return (
     <localeContext.Provider
       value={{
@@ -52,6 +58,7 @@ function LocaleProvider({ children }) {
         isAddNote,
         onClickAdd,
         setFilter,
+        deleteNote,
       }}
     >
       {children}

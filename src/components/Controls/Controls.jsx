@@ -6,16 +6,20 @@ import localeContext from '../../context/localeContext';
 
 function Controls() {
   const L_Context = useContext(localeContext);
-  const { onClickAdd } = L_Context;
+  const { onClickAdd, isAddNote, deleteNote } = L_Context;
   return (
     <ControlWrapper>
       <Button type="button" onClick={() => onClickAdd(true)}>
         <GoPlus />
       </Button>
-      <Button type="button" onClick={() => console.log('😫 Delete')}>
+      <Button type="button" disabled={isAddNote} onClick={deleteNote}>
         <RiDeleteBinLine />
       </Button>
-      <Button type="button" onClick={() => console.log('😍 Edit')}>
+      <Button
+        type="button"
+        disabled={isAddNote}
+        onClick={() => console.log('😍 Edit')}
+      >
         <RiEditBoxLine />
       </Button>
     </ControlWrapper>

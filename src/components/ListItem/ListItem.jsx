@@ -21,7 +21,7 @@ function ListItem({ note }) {
   return (
     <Item
       style={{
-        backgroundColor: isActiveNote ? pallete.ligthActive : 'transparent',
+        backgroundColor: isActiveNote ? pallete.ligthGray : 'transparent',
       }}
       onClick={() => showNote(note)}
     >
