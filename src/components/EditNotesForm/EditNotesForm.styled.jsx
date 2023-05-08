@@ -43,8 +43,6 @@ export const TextArea = styled.textarea`
   border-radius: 4px;
   outline: none;
   font-size: 14px;
-  /* color: #1664e269; */
-
   transition: border ${animation};
 
   &:hover,

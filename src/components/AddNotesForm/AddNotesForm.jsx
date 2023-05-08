@@ -5,13 +5,14 @@ import {
   Input,
   Button,
   TextArea,
+  ButtonWrapper,
 } from './AddNotesForm.styled';
 import localeContext from '../../context/localeContext';
 import { nanoid } from 'nanoid';
 
 function AddNotesForm() {
   const L_Context = useContext(localeContext);
-  const { addNote } = L_Context;
+  const { addNote, cancel } = L_Context;
 
   const handleSubmit = evt => {
     evt.preventDefault();
@@ -36,7 +37,12 @@ function AddNotesForm() {
         Description of the note
         <TextArea type="text" name="description" />
       </FormLabel>
-      <Button type="submit">Add note</Button>
+      <ButtonWrapper>
+        <Button type="submit">Add note</Button>
+        <Button type="button" onClick={cancel}>
+          Cancel
+        </Button>
+      </ButtonWrapper>
     </FormStyled>
   );
 }

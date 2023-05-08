@@ -3,6 +3,7 @@ import { pallete } from '../../helpers/variables';
 
 export const HeaderStyled = styled.header`
   padding: 8px 8px;
+  /* margin-bottom: 10px; */
   display: flex;
   flex-direction: column;
   gap: 16px;

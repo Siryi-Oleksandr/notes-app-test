@@ -9,6 +9,7 @@ function LocaleProvider({ children }) {
   const [notes, setNotes] = useState(data || []);
   const [showedNote, setShowedNote] = useState(() => notes[0]);
   const [isAddNote, setIsAddNote] = useState(false);
+  const [isEditNote, setIsEditNote] = useState(false);
   const [filter, setFilter] = useState('');
 
   // TODO logic with change BD
@@ -23,8 +24,23 @@ function LocaleProvider({ children }) {
   }, [showedNote, notes]);
 
   const addNote = data => {
-    notes.push(data);
+    setNotes(prev => [...prev, data]);
     setIsAddNote(false);
+  };
+
+  const editNote = data => {
+    const index = notes.findIndex(note => note.id === data.id);
+    if (index === -1) {
+      alert('note was not found');
+    }
+    notes[index] = { ...data };
+    setNotes(notes);
+    setIsEditNote(false);
+  };
+
+  const deleteNote = () => {
+    const actualNotes = notes.filter(note => note.id !== showedNote.id);
+    setNotes(actualNotes);
   };
 
   const showNote = note => {
@@ -35,17 +51,21 @@ function LocaleProvider({ children }) {
     setIsAddNote(true);
   };
 
+  const onClickEdit = () => {
+    setIsEditNote(true);
+  };
+
+  const cancel = () => {
+    setIsEditNote(false);
+    setIsAddNote(false);
+  };
+
   const filterList = notes => {
     const normalizedFilter = filter.toLocaleLowerCase();
     const visibleNotes = notes.filter(note =>
       note.title.toLocaleLowerCase().includes(normalizedFilter)
     );
     return visibleNotes;
-  };
-
-  const deleteNote = () => {
-    const actualNotes = notes.filter(note => note.id !== showedNote.id);
-    setNotes(actualNotes);
   };
 
   return (
@@ -59,6 +79,10 @@ function LocaleProvider({ children }) {
         onClickAdd,
         setFilter,
         deleteNote,
+        editNote,
+        onClickEdit,
+        isEditNote,
+        cancel,
       }}
     >
       {children}
