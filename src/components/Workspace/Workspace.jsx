@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext } from 'react';
 import {
   NoteDate,
   NoteDesc,
@@ -6,14 +6,16 @@ import {
   NoteTitle,
 } from './Workspace.styled';
 import { formatDate } from '../../services/dateService';
-import AddNotesForm from '../AddNotesForm/AddNotesForm';
+import AddNotesForm from '../AddNotesForm/';
 import localeContext from '../../context/localeContext';
-import EditNotesForm from '../EditNotesForm/EditNotesForm';
-import HaveNotNotes from '../HaveNotNotes/HaveNotNotes';
+import EditNotesForm from '../EditNotesForm/';
+import HaveNotNotes from '../HaveNotNotes/';
+import Loader from '../Loader';
 
 function Workspace() {
   const L_Context = useContext(localeContext);
-  const { showedNote, isAddNote, isEditNote, isEmptyNotes } = L_Context;
+  const { showedNote, isAddNote, isEditNote, isEmptyNotes, isLoading } =
+    L_Context;
 
   if (isEditNote) {
     return <EditNotesForm />;
@@ -38,6 +40,7 @@ function Workspace() {
           <NoteDesc>{showedNote.description}</NoteDesc>
         </NoteDetailsWrapper>
       )}
+      {isLoading && <Loader />}
     </>
   );
 }

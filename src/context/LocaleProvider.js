@@ -53,7 +53,6 @@ function LocaleProvider({ children }) {
 
   const addNote = data => {
     addNotes(data).then(setIsRefreshNotes(Date.now()));
-    // setNotes(prev => [...prev, data]);
     setIsAddNote(false);
   };
 
@@ -114,6 +113,7 @@ function LocaleProvider({ children }) {
         cancel,
         isEmptyNotes,
         setIsRefreshNotes,
+        isLoading,
       }}
     >
       {children}
