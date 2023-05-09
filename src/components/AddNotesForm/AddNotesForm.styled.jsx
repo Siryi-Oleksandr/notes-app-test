@@ -67,11 +67,12 @@ export const Button = styled.button`
     box-shadow: rgba(22, 100, 226, 0.24) 0px 3px 8px;
     background-color: rgba(22, 144, 226, 0.737);
     border-color: transparent;
-    color: #fff;
+    color: ${pallete.white};
   }
 `;
 
 export const ButtonWrapper = styled.div`
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 `;
