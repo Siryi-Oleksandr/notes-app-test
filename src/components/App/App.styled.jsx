@@ -13,6 +13,7 @@ export const Container = styled.div`
 `;
 
 export const MainSection = styled.main`
+  position: relative;
   display: flex;
   width: 100%;
 `;

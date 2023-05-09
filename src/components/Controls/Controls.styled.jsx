@@ -10,6 +10,7 @@ export const Button = styled.button`
   border-radius: 4px;
   outline: none;
   background-color: ${pallete.white};
+  /* color: #ffffffe1 */
 
   cursor: pointer;
 
@@ -17,7 +18,7 @@ export const Button = styled.button`
 
   &:hover,
   &:focus {
-    background-color: ${pallete.accent};
+    background-color: ${pallete.ligthActive};
   }
 `;
 

@@ -7,10 +7,11 @@ import data from '../notes.json';
 function LocaleProvider({ children }) {
   // const DB = process.env.REACT_APP_DB ?? 'indexed';
   const [notes, setNotes] = useState(data || []);
-  const [showedNote, setShowedNote] = useState(() => notes[0]);
+  const [showedNote, setShowedNote] = useState(() => notes[0]); // TODO bad idea notes[0]
   const [isAddNote, setIsAddNote] = useState(false);
   const [isEditNote, setIsEditNote] = useState(false);
   const [filter, setFilter] = useState('');
+  const [isEmptyNotes, setIsEmptyNotes] = useState(false);
 
   // TODO logic with change BD
   // if (DB.includes('quinta')) {
@@ -19,8 +20,15 @@ function LocaleProvider({ children }) {
   //   console.log('run indexed code 😍');
   // }
 
+  console.log(notes.length);
+  console.log('from Locale', isEmptyNotes);
+
   useEffect(() => {
-    console.log('notes changed'); // TODO add notes when changed
+    if (notes.length === 0) {
+      setIsEmptyNotes(true);
+    } else {
+      setIsEmptyNotes(false);
+    }
   }, [showedNote, notes]);
 
   const addNote = data => {
@@ -83,6 +91,7 @@ function LocaleProvider({ children }) {
         onClickEdit,
         isEditNote,
         cancel,
+        isEmptyNotes,
       }}
     >
       {children}

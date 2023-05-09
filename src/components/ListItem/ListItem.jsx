@@ -14,14 +14,16 @@ import { pallete } from '../../helpers/variables';
 function ListItem({ note }) {
   const { id, date, title, description } = note;
   const LS_Context = useContext(localeContext);
-  const { showNote, showedNote } = LS_Context;
+  const { showNote, showedNote, isEmptyNotes } = LS_Context;
 
+  // if (!isEmptyNotes) {
+  // }
   const isActiveNote = id === showedNote.id;
 
   return (
     <Item
       style={{
-        backgroundColor: isActiveNote ? pallete.ligthGray : 'transparent',
+        backgroundColor: isActiveNote ? pallete.ligthGray : pallete.ligthWhite,
       }}
       onClick={() => showNote(note)}
     >

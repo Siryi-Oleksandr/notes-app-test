@@ -10,7 +10,7 @@ export const Item = styled.li`
 
   &:hover,
   &:focus {
-    background-color: ${pallete.accent};
+    background-color: ${pallete.ligthActive};
   }
 `;
 

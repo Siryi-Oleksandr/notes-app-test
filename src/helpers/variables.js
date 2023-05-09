@@ -1,6 +1,7 @@
 export const pallete = {
   white: '#fff',
-  ligthGray: '#ccccccb5',
+  ligthWhite: '#ffffffe1',
+  ligthGray: '#cccccce1',
   active: '#1664e2',
   ligthActive: '#1664e269',
   bgAccent: '#5736A3',

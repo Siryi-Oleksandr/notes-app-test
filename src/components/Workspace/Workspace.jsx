@@ -12,7 +12,7 @@ import EditNotesForm from '../EditNotesForm/EditNotesForm';
 
 function Workspace() {
   const L_Context = useContext(localeContext);
-  const { showedNote, isAddNote, isEditNote } = L_Context;
+  const { showedNote, isAddNote, isEditNote, isEmptyNotes } = L_Context;
 
   if (isEditNote) {
     return <EditNotesForm />;
@@ -22,12 +22,20 @@ function Workspace() {
     return <AddNotesForm />;
   }
 
+  console.log('isEmptyNotes', isEmptyNotes);
+
   return (
-    <NoteDetailsWrapper>
-      <NoteDate>{formatDate(showedNote.date)}</NoteDate>
-      <NoteTitle>{showedNote.title}</NoteTitle>
-      <NoteDesc>{showedNote.description}</NoteDesc>
-    </NoteDetailsWrapper>
+    <>
+      {isEmptyNotes ? (
+        <p>no notes yet</p>
+      ) : (
+        <NoteDetailsWrapper>
+          <NoteDate>{formatDate(showedNote.date)}</NoteDate>
+          <NoteTitle>{showedNote.title}</NoteTitle>
+          <NoteDesc>{showedNote.description}</NoteDesc>
+        </NoteDetailsWrapper>
+      )}
+    </>
   );
 }
 
