@@ -1,27 +1,47 @@
 import localeContext from './localeContext';
 import React, { useEffect, useState } from 'react';
 import data from '../notes.json';
+import { addNotes, getNotes } from '../services/quintaApiService';
 
 // const notes = data;
 
 function LocaleProvider({ children }) {
   // const DB = process.env.REACT_APP_DB ?? 'indexed';
-  const [notes, setNotes] = useState(data || []);
-  const [showedNote, setShowedNote] = useState(() => notes[0]); // TODO bad idea notes[0]
+  const [notes, setNotes] = useState([]);
+  const [showedNote, setShowedNote] = useState({}); // TODO bad idea notes[0]
   const [isAddNote, setIsAddNote] = useState(false);
   const [isEditNote, setIsEditNote] = useState(false);
   const [filter, setFilter] = useState('');
   const [isEmptyNotes, setIsEmptyNotes] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRefreshNotes, setIsRefreshNotes] = useState(null);
 
   // TODO logic with change BD
   // if (DB.includes('quinta')) {
   //   console.log('run quinta code 😎');
   // } else {
   //   console.log('run indexed code 😍');
-  // }
+  // } form id : "afts1egG5nu4kcWPS5nCkz"
 
-  console.log(notes.length);
-  console.log('from Locale', isEmptyNotes);
+  useEffect(() => {
+    setIsLoading(true);
+    getNotes()
+      .then(data => {
+        const allNotes = data.map(note => ({
+          id: note.id,
+          title: note.values.title,
+          description: note.values.description,
+          date: Number(note.values.date),
+        }));
+        setNotes(allNotes);
+        setShowedNote(allNotes[0]);
+      })
+      .catch(e => {
+        setIsLoading(false);
+        console.error(e.message);
+      })
+      .finally(() => setIsLoading(false));
+  }, [isRefreshNotes]);
 
   useEffect(() => {
     if (notes.length === 0) {
@@ -32,7 +52,8 @@ function LocaleProvider({ children }) {
   }, [showedNote, notes]);
 
   const addNote = data => {
-    setNotes(prev => [...prev, data]);
+    addNotes(data).then(setIsRefreshNotes(Date.now()));
+    // setNotes(prev => [...prev, data]);
     setIsAddNote(false);
   };
 
@@ -92,6 +113,7 @@ function LocaleProvider({ children }) {
         isEditNote,
         cancel,
         isEmptyNotes,
+        setIsRefreshNotes,
       }}
     >
       {children}

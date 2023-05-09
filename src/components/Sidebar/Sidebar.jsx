@@ -1,15 +1,16 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import ListItem from '../ListItem/ListItem';
-import { AsaidWrapper, Aside, BurgerMenu } from './Sidebar.styled';
+import { Aside, BurgerMenu } from './Sidebar.styled';
 import localeContext from '../../context/localeContext';
 import { GiHamburgerMenu } from 'react-icons/gi';
 import { GrClose } from 'react-icons/gr';
 
 function Sidebar() {
-  const LS_Context = useContext(localeContext);
-  const { notes } = LS_Context;
+  const L_Context = useContext(localeContext);
+  const { notes } = L_Context;
   const [isShowSidebar, setIsShowSidebar] = useState(true);
 
+  // useEffect(() => {}, [notes]);
   return (
     <>
       <BurgerMenu

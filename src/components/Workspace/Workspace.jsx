@@ -9,6 +9,7 @@ import { formatDate } from '../../services/dateService';
 import AddNotesForm from '../AddNotesForm/AddNotesForm';
 import localeContext from '../../context/localeContext';
 import EditNotesForm from '../EditNotesForm/EditNotesForm';
+import HaveNotNotes from '../HaveNotNotes/HaveNotNotes';
 
 function Workspace() {
   const L_Context = useContext(localeContext);
@@ -22,12 +23,14 @@ function Workspace() {
     return <AddNotesForm />;
   }
 
-  console.log('isEmptyNotes', isEmptyNotes);
+  // if (!showedNote) {
+  //   return <p>no notes yet</p>;
+  // }
 
   return (
     <>
       {isEmptyNotes ? (
-        <p>no notes yet</p>
+        <HaveNotNotes />
       ) : (
         <NoteDetailsWrapper>
           <NoteDate>{formatDate(showedNote.date)}</NoteDate>

@@ -16,8 +16,17 @@ function ListItem({ note }) {
   const LS_Context = useContext(localeContext);
   const { showNote, showedNote, isEmptyNotes } = LS_Context;
 
-  // if (!isEmptyNotes) {
-  // }
+  // useEffect(() => {
+  //   first;
+
+  //   return () => {
+  //     second;
+  //   };
+  // }, [showedNote]);
+
+  if (!showedNote) {
+    return <p>no notes yet</p>;
+  }
   const isActiveNote = id === showedNote.id;
 
   return (
