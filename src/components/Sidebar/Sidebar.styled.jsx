@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { animation, pallete } from '../../helpers/variables';
 
 export const Aside = styled.aside`
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   min-width: 235px;

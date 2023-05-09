@@ -3,6 +3,8 @@ import { animation, pallete } from '../../helpers/variables';
 
 export const FormStyled = styled.form`
   padding: 16px 26px;
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -10,18 +12,14 @@ export const FormStyled = styled.form`
 `;
 
 export const FormLabel = styled.label`
-  position: relative;
-  width: 350px;
   display: flex;
   flex-direction: column;
   gap: 10px;
-
-  font-family: 'Segoe UI';
   font-size: 18px;
 `;
 export const Input = styled.input`
   padding: 5px;
-  width: 250px;
+  width: 100%;
   border: 2px solid ${pallete.gray};
   border-radius: 4px;
   outline: none;
@@ -37,13 +35,12 @@ export const Input = styled.input`
 
 export const TextArea = styled.textarea`
   padding: 5px;
-  width: 250px;
+  width: 100%;
   min-height: 100px;
   border: 2px solid ${pallete.gray};
   border-radius: 4px;
   outline: none;
   font-size: 14px;
-  /* color: #1664e269; */
 
   transition: border ${animation};
 

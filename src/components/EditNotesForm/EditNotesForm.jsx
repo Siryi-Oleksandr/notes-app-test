@@ -6,7 +6,7 @@ import {
   Button,
   TextArea,
   ButtonWrapper,
-} from './EditNotesForm.styled';
+} from '../AddNotesForm/AddNotesForm.styled';
 import localeContext from '../../context/localeContext';
 
 function EditNotesForm() {
