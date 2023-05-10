@@ -14,6 +14,7 @@ function Controls() {
     onClickEdit,
     isEmptyNotes,
   } = L_Context;
+
   return (
     <ControlWrapper>
       <Button

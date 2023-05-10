@@ -1,20 +1,19 @@
 import localeContext from './localeContext';
 import React, { useEffect, useState } from 'react';
-import data from '../notes.json';
+// import data from '../notes.json';
 import { addNotes, getNotes } from '../services/quintaApiService';
-
-// const notes = data;
 
 function LocaleProvider({ children }) {
   // const DB = process.env.REACT_APP_DB ?? 'indexed';
   const [notes, setNotes] = useState([]);
-  const [showedNote, setShowedNote] = useState(null); // TODO bad idea notes[0]
+  const [showedNote, setShowedNote] = useState(null);
   const [isAddNote, setIsAddNote] = useState(false);
   const [isEditNote, setIsEditNote] = useState(false);
   const [filter, setFilter] = useState('');
   const [isEmptyNotes, setIsEmptyNotes] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshNotes, setIsRefreshNotes] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   // TODO logic with change BD
   // if (DB.includes('quinta')) {
@@ -37,9 +36,8 @@ function LocaleProvider({ children }) {
           description: note.values.description,
           date: Number(note.values.date),
         }));
-        console.log(allNotes);
-        setNotes(allNotes);
-        // setShowedNote(allNotes[0]);
+        setNotes(allNotes.sort((a, b) => a.date - b.date));
+        console.log('new refresh', allNotes);
       })
       .catch(e => {
         setIsLoading(false);
@@ -58,23 +56,25 @@ function LocaleProvider({ children }) {
   }, [notes]);
 
   const addNote = data => {
-    addNotes(data).then(setIsRefreshNotes(Date.now()));
-    setIsAddNote(false);
+    addNotes(data).then(() => setIsRefreshNotes(new Date()));
+    setIsAddNote(false); // for close window with add form
   };
-
+  // TODO Edit logic
   const editNote = data => {
     const index = notes.findIndex(note => note.id === data.id);
     if (index === -1) {
       alert('note was not found');
     }
-    notes[index] = { ...data };
+    notes[index] = { ...data }; // TODo bad idea
     setNotes(notes);
     setIsEditNote(false);
   };
 
   const deleteNote = () => {
-    const actualNotes = notes.filter(note => note.id !== showedNote.id);
-    setNotes(actualNotes);
+    if (window.confirm('Are you sure? Do you want remove note?')) {
+      const actualNotes = notes.filter(note => note.id !== showedNote.id);
+      setNotes(actualNotes);
+    }
   };
 
   const showNote = note => {
@@ -82,15 +82,15 @@ function LocaleProvider({ children }) {
   };
 
   const onClickAdd = () => {
-    setIsAddNote(true);
+    setIsAddNote(true); // for open window with add form
   };
 
   const onClickEdit = () => {
-    setIsEditNote(true);
+    setIsEditNote(true); // for close window with edit form
   };
 
   const cancel = () => {
-    setIsEditNote(false);
+    setIsEditNote(false); // for close window with edit and add forms
     setIsAddNote(false);
   };
 
