@@ -1,19 +1,18 @@
 import localeContext from './localeContext';
 import React, { useEffect, useState } from 'react';
 // import data from '../notes.json';
-import { addNotes, getNotes } from '../services/quintaApiService';
+import * as quintaAPI from '../services/quintaApiService';
 
 function LocaleProvider({ children }) {
   // const DB = process.env.REACT_APP_DB ?? 'indexed';
   const [notes, setNotes] = useState([]);
-  const [showedNote, setShowedNote] = useState(null);
+  const [currentNote, setCurrentNote] = useState(null);
   const [isAddNote, setIsAddNote] = useState(false);
   const [isEditNote, setIsEditNote] = useState(false);
   const [filter, setFilter] = useState('');
   const [isEmptyNotes, setIsEmptyNotes] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshNotes, setIsRefreshNotes] = useState(null);
-  const [showModal, setShowModal] = useState(false);
 
   // TODO logic with change BD
   // if (DB.includes('quinta')) {
@@ -24,10 +23,11 @@ function LocaleProvider({ children }) {
 
   useEffect(() => {
     setIsLoading(true);
-    getNotes()
+    quintaAPI
+      .getNotes()
       .then(data => {
         if (data.length === 0) {
-          setShowedNote(null);
+          setCurrentNote(null);
           setIsEmptyNotes(true);
         }
         const allNotes = data.map(note => ({
@@ -49,14 +49,14 @@ function LocaleProvider({ children }) {
   useEffect(() => {
     if (notes.length === 0) {
       setIsEmptyNotes(true);
-      setShowedNote(null);
+      setCurrentNote(null);
     } else {
       setIsEmptyNotes(false);
     }
   }, [notes]);
 
   const addNote = data => {
-    addNotes(data).then(() => setIsRefreshNotes(new Date()));
+    quintaAPI.addNote(data).then(() => setIsRefreshNotes(new Date()));
     setIsAddNote(false); // for close window with add form
   };
   // TODO Edit logic
@@ -72,13 +72,16 @@ function LocaleProvider({ children }) {
 
   const deleteNote = () => {
     if (window.confirm('Are you sure? Do you want remove note?')) {
-      const actualNotes = notes.filter(note => note.id !== showedNote.id);
-      setNotes(actualNotes);
+      quintaAPI.deleteNote(currentNote.id).then(status => {
+        if (status === 200) {
+          setIsRefreshNotes(new Date());
+        }
+      });
     }
   };
 
   const showNote = note => {
-    setShowedNote(note);
+    setCurrentNote(note);
   };
 
   const onClickAdd = () => {
@@ -107,7 +110,7 @@ function LocaleProvider({ children }) {
       value={{
         addNote,
         notes: filterList(notes),
-        showedNote,
+        currentNote,
         showNote,
         isAddNote,
         onClickAdd,

@@ -14,7 +14,7 @@ import Loader from '../Loader';
 
 function Workspace() {
   const L_Context = useContext(localeContext);
-  const { showedNote, isAddNote, isEditNote, isEmptyNotes, isLoading } =
+  const { currentNote, isAddNote, isEditNote, isEmptyNotes, isLoading } =
     L_Context;
 
   if (isEditNote) {
@@ -31,13 +31,13 @@ function Workspace() {
 
   return (
     <>
-      {!showedNote ? (
+      {!currentNote ? (
         <IsNotChooseNotes />
       ) : (
         <NoteDetailsWrapper>
-          <NoteDate>{formatDate(showedNote.date)}</NoteDate>
-          <NoteTitle>{showedNote.title}</NoteTitle>
-          <NoteDesc>{showedNote.description}</NoteDesc>
+          <NoteDate>{formatDate(currentNote.date)}</NoteDate>
+          <NoteTitle>{currentNote.title}</NoteTitle>
+          <NoteDesc>{currentNote.description}</NoteDesc>
         </NoteDetailsWrapper>
       )}
       {isLoading && <Loader />}

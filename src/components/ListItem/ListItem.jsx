@@ -14,7 +14,7 @@ import { pallete } from '../../helpers/variables';
 function ListItem({ note }) {
   const { id, date, title, description } = note;
   const LS_Context = useContext(localeContext);
-  const { showNote, showedNote, isEmptyNotes } = LS_Context;
+  const { showNote, currentNote, isEmptyNotes } = LS_Context;
 
   // useEffect(() => {
   //   first;
@@ -28,8 +28,8 @@ function ListItem({ note }) {
   //   return <p>no notes yet</p>;
   // }
   let isActiveNote = null;
-  if (showedNote) {
-    isActiveNote = id === showedNote.id;
+  if (currentNote) {
+    isActiveNote = id === currentNote.id;
   }
 
   return (

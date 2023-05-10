@@ -6,7 +6,7 @@ const APP_ID = 'c0tYlcNSnlW5lcNmkQW4GM';
 const ENTITY_ID = 'afts1egG5nu4kcWPS5nCkz';
 axios.defaults.baseURL = 'https://quintadb.com.ua';
 
-export const getNotes = async () => {
+const getNotes = async () => {
   try {
     const response = await axios.get(
       'https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/entity/afts1egG5nu4kcWPS5nCkz.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2&name_value=1?amp;view='
@@ -19,7 +19,7 @@ export const getNotes = async () => {
   }
 };
 
-export const addNotes = async data => {
+const addNote = async data => {
   const { title, description, date } = data;
   try {
     const response = await axios.post(`/apps/${APP_ID}/dtypes.json`, {
@@ -35,13 +35,29 @@ export const addNotes = async data => {
     });
     return response.data;
   } catch (e) {
-    toast.error(`Something went wrong! ${e.message}`);
+    alert(`Something went wrong! ${e.message}`);
     console.error(e.message);
   }
 };
 
-// https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/entities/afts1egG5nu4kcWPS5nCkz/properties.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // create field
+const deleteNote = async id => {
+  try {
+    const response = await axios.delete(
+      `/apps/${APP_ID}/dtypes/${id}.json?rest_api_key=${KEY}`
+    );
+    // console.log('delete response ==>', response.status);
+    return response.status;
+  } catch (e) {
+    alert(`Something went wrong! ${e.message}`);
+    console.error(e.message);
+  }
+};
+
+export { getNotes, addNote, deleteNote };
+
+// https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/bIWQ3cPCnoiBfJqSkZpMXx.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 //!delete note
 // https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // ! create note
+// https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/entities/afts1egG5nu4kcWPS5nCkz/properties.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // create field
 // https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/entities.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // get all forms
 // https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/entities/afts1egG5nu4kcWPS5nCkz/properties.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // get fields of the forms
 
