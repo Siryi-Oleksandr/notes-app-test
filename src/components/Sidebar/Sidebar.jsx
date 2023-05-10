@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import ListItem from '../ListItem/ListItem';
 import { Aside, BurgerMenu } from './Sidebar.styled';
 import localeContext from '../../context/localeContext';
@@ -10,7 +10,6 @@ function Sidebar() {
   const { notes } = L_Context;
   const [isShowSidebar, setIsShowSidebar] = useState(true);
 
-  // useEffect(() => {}, [notes]);
   return (
     <>
       <BurgerMenu

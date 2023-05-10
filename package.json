@@ -21,6 +21,8 @@
     "start": "react-scripts start",
     "quinta": "set REACT_APP_DB=quinta && npm start",
     "indexed": "set REACT_APP_DB=indexed && npm start",
+    "quinta:linux": "REACT_APP_DB=quinta npm start",
+    "indexed:linux": "REACT_APP_DB=indexed npm start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

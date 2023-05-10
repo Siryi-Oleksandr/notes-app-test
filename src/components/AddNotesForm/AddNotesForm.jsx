@@ -8,7 +8,6 @@ import {
   ButtonWrapper,
 } from './AddNotesForm.styled';
 import localeContext from '../../context/localeContext';
-// import { nanoid } from 'nanoid';
 
 function AddNotesForm() {
   const L_Context = useContext(localeContext);
@@ -21,7 +20,7 @@ function AddNotesForm() {
     const description = form.elements.description.value;
     const date = new Date();
     if (!title) {
-      return alert('Please write smth');
+      return alert('Please write title');
     }
     addNote({ title, description, date: date.getTime() });
     form.reset();

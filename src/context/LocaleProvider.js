@@ -3,15 +3,15 @@ import React, { useEffect, useState } from 'react';
 import * as quintaAPI from '../services/quintaApiService';
 import * as indexedAPI from '../services/indexedAPI';
 
-const DB = process.env.REACT_APP_DB ?? 'quinta';
-let dbAPI = quintaAPI;
+const DB = process.env.REACT_APP_DB ?? 'indexed';
+let dbAPI = indexedAPI;
 
 // TODO logic with change BD
-if (DB.includes('indexed')) {
-  console.log('runing indexed API 😎');
-  dbAPI = indexedAPI;
+if (DB.includes('quinta')) {
+  console.log('runing quinta DB 😎');
+  dbAPI = quintaAPI;
 } else {
-  console.log('runing quinta API 😍');
+  console.log('runing indexed DB 😍');
 }
 
 function LocaleProvider({ children }) {
