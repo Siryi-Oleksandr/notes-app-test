@@ -2,10 +2,21 @@ import localeContext from './localeContext';
 import React, { useEffect, useState } from 'react';
 // import data from '../notes.json';
 import * as quintaAPI from '../services/quintaApiService';
+import * as indexedAPI from '../services/indexedAPI';
 import { formatIncomingData } from '../services/dataService';
 
+const DB = process.env.REACT_APP_DB ?? 'quinta';
+let dbAPI = quintaAPI;
+
+// TODO logic with change BD
+if (DB.includes('indexed')) {
+  console.log('runing indexed API 😎');
+  dbAPI = indexedAPI;
+} else {
+  console.log('runing quinta API 😍');
+}
+
 function LocaleProvider({ children }) {
-  // const DB = process.env.REACT_APP_DB ?? 'indexed';
   const [notes, setNotes] = useState([]);
   const [currentNote, setCurrentNote] = useState(null);
   const [isAddNote, setIsAddNote] = useState(false);
@@ -14,13 +25,6 @@ function LocaleProvider({ children }) {
   const [isEmptyNotes, setIsEmptyNotes] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshNotes, setIsRefreshNotes] = useState(null);
-
-  // TODO logic with change BD
-  // if (DB.includes('quinta')) {
-  //   console.log('run quinta code 😎');
-  // } else {
-  //   console.log('run indexed code 😍');
-  // } form id : "afts1egG5nu4kcWPS5nCkz"
 
   useEffect(() => {
     setIsLoading(true);
@@ -54,7 +58,7 @@ function LocaleProvider({ children }) {
     quintaAPI.addNote(data).then(() => setIsRefreshNotes(new Date()));
     setIsAddNote(false); // for close window with add form
   };
-  // TODO Edit logic
+
   const editNote = data => {
     quintaAPI.editNote(data).then(note => {
       const updatedNote = formatIncomingData(note);
@@ -69,6 +73,7 @@ function LocaleProvider({ children }) {
       quintaAPI.deleteNote(currentNote.id).then(status => {
         if (status === 200) {
           setIsRefreshNotes(new Date());
+          setCurrentNote(null);
         }
       });
     }

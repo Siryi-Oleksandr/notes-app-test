@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { toast } from 'react-hot-toast';
 
 const KEY = 'abDs4qBXjiW5pdSCkRWRX2';
 const APP_ID = 'c0tYlcNSnlW5lcNmkQW4GM';
@@ -14,7 +13,7 @@ const getNotes = async () => {
 
     return response?.data?.records;
   } catch (e) {
-    toast.error(`Something went wrong! ${e.message}`);
+    alert(`Something went wrong! ${e.message}`);
     console.error(e.message);
   }
 };
@@ -70,17 +69,3 @@ const editNote = async data => {
 };
 
 export { getNotes, addNote, deleteNote, editNote };
-
-// https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/bIWQ3cPCnoiBfJqSkZpMXx.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 //!delete note
-// https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // ! create note
-// https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/entities/afts1egG5nu4kcWPS5nCkz/properties.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // create field
-// https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/entities.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // get all forms
-// https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/entities/afts1egG5nu4kcWPS5nCkz/properties.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // get fields of the forms
-
-// form id : "afts1egG5nu4kcWPS5nCkz"
-
-// dcIHZdTmnawzhdKmopW6v6: "title"
-// ddRvJcIJPdUiotomofWR4Q: "description"
-// crWQtcOSnmW40Oh8oyW4j9: "date";
-// ahW45uDmniWPzuW6BcLSkw: 'password';
-// ddJSots8npWO9hWQPfW64E: "isLocked"
