@@ -1,40 +1,63 @@
-import axios from 'axios';
-import notes from '../notes.json';
+import { openDB } from 'idb';
 
-axios.defaults.baseURL = 'https://quintadb.com.ua';
+let db = null;
 
-const getNotes = async () => {
-  //   try {
-  //     const response = await axios.get(
-  //       'https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/entity/afts1egG5nu4kcWPS5nCkz.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2&name_value=1?amp;view='
-  //     );
-  //     return response?.data?.records;
-  //   } catch (e) {
-  //     alert(`Something went wrong! ${e.message}`);
-  //     console.error(e.message);
-  //   }
-  console.log(notes);
-  return notes || [];
-};
+async function initIndexedDB() {
+  if (db) {
+    return;
+  }
+  db = await openDB('notesDb', 1, {
+    upgrade(db) {
+      db.createObjectStore('notes', { keyPath: 'id', autoIncrement: true });
+    },
+  });
+}
 
-const addNote = async data => {
-  //   const { title, description, date } = data;
-  //   try {
-  //     const response = await axios.post(`/apps/${APP_ID}/dtypes.json`, {
-  //       rest_api_key: KEY,
-  //       values: {
-  //         entity_id: ENTITY_ID,
-  //         dcIHZdTmnawzhdKmopW6v6: title,
-  //         ddRvJcIJPdUiotomofWR4Q: description,
-  //         crWQtcOSnmW40Oh8oyW4j9: date,
-  //       },
-  //     });
-  //     return response.data;
-  //   } catch (e) {
-  //     alert(`Something went wrong! ${e.message}`);
-  //     console.error(e.message);
-  //   }
-};
+async function getNotes() {
+  try {
+    await initIndexedDB();
+    let tx = db.transaction('notes');
+    let notesStore = tx.objectStore('notes');
+    let notes = await notesStore.getAll();
+
+    return notes;
+  } catch (e) {
+    alert(`Something went wrong! ${e.message}`);
+    console.error(e);
+  }
+}
+
+async function addNote({ title, description, date }) {
+  let tx = db.transaction('notes', 'readwrite');
+
+  try {
+    await tx.objectStore('notes').add({ title, description, date });
+    // await getNotes();
+  } catch (e) {
+    alert(`Something went wrong! ${e.message}`);
+    console.error(e);
+  }
+}
+
+// async function clearBooks() {
+//   let tx = db.transaction('books', 'readwrite');
+//   await tx.objectStore('books').clear();
+//   await list();
+// }
+
+// const getNotes = async () => {
+//   //   try {
+//   //     const response = await axios.get(
+//   //       'https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/entity/afts1egG5nu4kcWPS5nCkz.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2&name_value=1?amp;view='
+//   //     );
+//   //     return response?.data?.records;
+//   //   } catch (e) {
+//   //     alert(`Something went wrong! ${e.message}`);
+//   //     console.error(e.message);
+//   //   }
+//   console.log(notes);
+//   return notes || [];
+// };
 
 const deleteNote = async id => {
   //   try {
