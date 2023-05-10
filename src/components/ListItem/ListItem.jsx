@@ -24,10 +24,13 @@ function ListItem({ note }) {
   //   };
   // }, [showedNote]);
 
-  if (!showedNote) {
-    return <p>no notes yet</p>;
+  // if (!showedNote) {
+  //   return <p>no notes yet</p>;
+  // }
+  let isActiveNote = null;
+  if (showedNote) {
+    isActiveNote = id === showedNote.id;
   }
-  const isActiveNote = id === showedNote.id;
 
   return (
     <Item

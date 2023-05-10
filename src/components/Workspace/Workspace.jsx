@@ -9,7 +9,7 @@ import { formatDate } from '../../services/dateService';
 import AddNotesForm from '../AddNotesForm/';
 import localeContext from '../../context/localeContext';
 import EditNotesForm from '../EditNotesForm/';
-import HaveNotNotes from '../HaveNotNotes/';
+import { HaveNotNotes, IsNotChooseNotes } from '../HaveNotNotes/HaveNotNotes';
 import Loader from '../Loader';
 
 function Workspace() {
@@ -25,14 +25,14 @@ function Workspace() {
     return <AddNotesForm />;
   }
 
-  // if (!showedNote) {
-  //   return <p>no notes yet</p>;
-  // }
+  if (isEmptyNotes) {
+    return <HaveNotNotes />;
+  }
 
   return (
     <>
-      {isEmptyNotes ? (
-        <HaveNotNotes />
+      {!showedNote ? (
+        <IsNotChooseNotes />
       ) : (
         <NoteDetailsWrapper>
           <NoteDate>{formatDate(showedNote.date)}</NoteDate>

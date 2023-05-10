@@ -8,7 +8,7 @@ import { addNotes, getNotes } from '../services/quintaApiService';
 function LocaleProvider({ children }) {
   // const DB = process.env.REACT_APP_DB ?? 'indexed';
   const [notes, setNotes] = useState([]);
-  const [showedNote, setShowedNote] = useState({}); // TODO bad idea notes[0]
+  const [showedNote, setShowedNote] = useState(null); // TODO bad idea notes[0]
   const [isAddNote, setIsAddNote] = useState(false);
   const [isEditNote, setIsEditNote] = useState(false);
   const [filter, setFilter] = useState('');
@@ -27,14 +27,19 @@ function LocaleProvider({ children }) {
     setIsLoading(true);
     getNotes()
       .then(data => {
+        if (data.length === 0) {
+          setShowedNote(null);
+          setIsEmptyNotes(true);
+        }
         const allNotes = data.map(note => ({
           id: note.id,
           title: note.values.title,
           description: note.values.description,
           date: Number(note.values.date),
         }));
+        console.log(allNotes);
         setNotes(allNotes);
-        setShowedNote(allNotes[0]);
+        // setShowedNote(allNotes[0]);
       })
       .catch(e => {
         setIsLoading(false);
@@ -46,10 +51,11 @@ function LocaleProvider({ children }) {
   useEffect(() => {
     if (notes.length === 0) {
       setIsEmptyNotes(true);
+      setShowedNote(null);
     } else {
       setIsEmptyNotes(false);
     }
-  }, [showedNote, notes]);
+  }, [notes]);
 
   const addNote = data => {
     addNotes(data).then(setIsRefreshNotes(Date.now()));

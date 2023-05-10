@@ -33,7 +33,6 @@ export const addNotes = async data => {
         // ddJSots8npWO9hWQPfW64E: isLocked,
       },
     });
-    console.log('response.data', response.data);
     return response.data;
   } catch (e) {
     toast.error(`Something went wrong! ${e.message}`);
