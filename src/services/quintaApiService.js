@@ -29,8 +29,6 @@ const addNote = async data => {
         dcIHZdTmnawzhdKmopW6v6: title,
         ddRvJcIJPdUiotomofWR4Q: description,
         crWQtcOSnmW40Oh8oyW4j9: date,
-        // ahW45uDmniWPzuW6BcLSkw: password,
-        // ddJSots8npWO9hWQPfW64E: isLocked,
       },
     });
     return response.data;
@@ -53,7 +51,25 @@ const deleteNote = async id => {
   }
 };
 
-export { getNotes, addNote, deleteNote };
+const editNote = async data => {
+  const { id, title, description, date } = data;
+  try {
+    const response = await axios.put(`/apps/${APP_ID}/dtypes/${id}.json`, {
+      rest_api_key: KEY,
+      values: {
+        dcIHZdTmnawzhdKmopW6v6: title,
+        ddRvJcIJPdUiotomofWR4Q: description,
+        crWQtcOSnmW40Oh8oyW4j9: date,
+      },
+    });
+    return response?.data?.record;
+  } catch (e) {
+    alert(`Something went wrong! ${e.message}`);
+    console.error(e.message);
+  }
+};
+
+export { getNotes, addNote, deleteNote, editNote };
 
 // https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/bIWQ3cPCnoiBfJqSkZpMXx.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 //!delete note
 // https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2 // ! create note

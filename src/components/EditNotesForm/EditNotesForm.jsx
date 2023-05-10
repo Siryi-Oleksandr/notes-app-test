@@ -11,10 +11,10 @@ import localeContext from '../../context/localeContext';
 
 function EditNotesForm() {
   const L_Context = useContext(localeContext);
-  const { editNote, showedNote, cancel } = L_Context;
+  const { editNote, currentNote, cancel } = L_Context;
 
-  const [title, setTitle] = useState(showedNote.title);
-  const [description, setDescription] = useState(showedNote.description);
+  const [title, setTitle] = useState(currentNote.title);
+  const [description, setDescription] = useState(currentNote.description);
 
   const handleSubmit = evt => {
     evt.preventDefault();
@@ -22,7 +22,7 @@ function EditNotesForm() {
     if (!title) {
       return alert('Please write smth');
     }
-    editNote({ id: showedNote.id, title, description, date: date.getTime() });
+    editNote({ id: currentNote.id, title, description, date: date.getTime() });
     evt.currentTarget.reset();
   };
 

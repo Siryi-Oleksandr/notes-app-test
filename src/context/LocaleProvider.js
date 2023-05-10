@@ -2,6 +2,7 @@ import localeContext from './localeContext';
 import React, { useEffect, useState } from 'react';
 // import data from '../notes.json';
 import * as quintaAPI from '../services/quintaApiService';
+import { formatIncomingData } from '../services/dataService';
 
 function LocaleProvider({ children }) {
   // const DB = process.env.REACT_APP_DB ?? 'indexed';
@@ -30,14 +31,8 @@ function LocaleProvider({ children }) {
           setCurrentNote(null);
           setIsEmptyNotes(true);
         }
-        const allNotes = data.map(note => ({
-          id: note.id,
-          title: note.values.title,
-          description: note.values.description,
-          date: Number(note.values.date),
-        }));
+        const allNotes = data.map(note => formatIncomingData(note));
         setNotes(allNotes.sort((a, b) => a.date - b.date));
-        console.log('new refresh', allNotes);
       })
       .catch(e => {
         setIsLoading(false);
@@ -61,12 +56,11 @@ function LocaleProvider({ children }) {
   };
   // TODO Edit logic
   const editNote = data => {
-    const index = notes.findIndex(note => note.id === data.id);
-    if (index === -1) {
-      alert('note was not found');
-    }
-    notes[index] = { ...data }; // TODo bad idea
-    setNotes(notes);
+    quintaAPI.editNote(data).then(note => {
+      const updatedNote = formatIncomingData(note);
+      setCurrentNote(updatedNote);
+      setIsRefreshNotes(new Date());
+    });
     setIsEditNote(false);
   };
 
