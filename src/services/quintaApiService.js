@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { formatIncomingData } from './dataService';
 
 const KEY = 'abDs4qBXjiW5pdSCkRWRX2';
 const APP_ID = 'c0tYlcNSnlW5lcNmkQW4GM';
@@ -10,8 +11,10 @@ const getNotes = async () => {
     const response = await axios.get(
       'https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/entity/afts1egG5nu4kcWPS5nCkz.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2&name_value=1?amp;view='
     );
-
-    return response?.data?.records;
+    const formatedNotes = response?.data?.records.map(note =>
+      formatIncomingData(note)
+    );
+    return formatedNotes || [];
   } catch (e) {
     alert(`Something went wrong! ${e.message}`);
     console.error(e.message);
@@ -61,7 +64,8 @@ const editNote = async data => {
         crWQtcOSnmW40Oh8oyW4j9: date,
       },
     });
-    return response?.data?.record;
+    const updatedNote = formatIncomingData(response?.data?.record);
+    return updatedNote || null;
   } catch (e) {
     alert(`Something went wrong! ${e.message}`);
     console.error(e.message);

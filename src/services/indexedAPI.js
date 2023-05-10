@@ -1,4 +1,5 @@
 import axios from 'axios';
+import notes from '../notes.json';
 
 axios.defaults.baseURL = 'https://quintadb.com.ua';
 
@@ -12,6 +13,8 @@ const getNotes = async () => {
   //     alert(`Something went wrong! ${e.message}`);
   //     console.error(e.message);
   //   }
+  console.log(notes);
+  return notes || [];
 };
 
 const addNote = async data => {

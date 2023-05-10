@@ -36,8 +36,8 @@ function LocaleProvider({ children }) {
           setIsEmptyNotes(true);
           return;
         }
-        const allNotes = data.map(note => formatIncomingData(note));
-        setNotes(allNotes.sort((a, b) => a.date - b.date));
+
+        setNotes(data.sort((a, b) => a.date - b.date));
       })
       .catch(e => {
         setIsLoading(false);
@@ -62,8 +62,8 @@ function LocaleProvider({ children }) {
 
   const editNote = data => {
     dbAPI.editNote(data).then(note => {
-      const updatedNote = formatIncomingData(note);
-      setCurrentNote(updatedNote);
+      // const updatedNote = formatIncomingData(note);
+      setCurrentNote(note);
       setIsRefreshNotes(new Date());
     });
     setIsEditNote(false);
