@@ -1,9 +1,7 @@
 import localeContext from './localeContext';
 import React, { useEffect, useState } from 'react';
-// import data from '../notes.json';
 import * as quintaAPI from '../services/quintaApiService';
 import * as indexedAPI from '../services/indexedAPI';
-import { formatIncomingData } from '../services/dataService';
 
 const DB = process.env.REACT_APP_DB ?? 'quinta';
 let dbAPI = quintaAPI;

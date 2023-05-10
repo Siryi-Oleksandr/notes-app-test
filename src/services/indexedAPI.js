@@ -10,7 +10,7 @@ async function initIndexedDB() {
   }
   db = await openDB('notesDb', 1, {
     upgrade(db) {
-      db.createObjectStore('notes', { keyPath: 'id', autoIncrement: true });
+      db.createObjectStore(STORE_NAME, { keyPath: 'id', autoIncrement: true });
     },
   });
 }
@@ -18,8 +18,8 @@ async function initIndexedDB() {
 async function getNotes() {
   try {
     await initIndexedDB();
-    const tx = db.transaction('notes');
-    const notesStore = tx.objectStore('notes');
+    const tx = db.transaction(STORE_NAME);
+    const notesStore = tx.objectStore(STORE_NAME);
     const notes = await notesStore.getAll();
 
     return notes || [];
@@ -30,10 +30,12 @@ async function getNotes() {
 }
 
 async function addNote({ title, description, date }) {
-  const tx = db.transaction('notes', 'readwrite');
+  const tx = db.transaction(STORE_NAME, 'readwrite');
 
   try {
-    const id = await tx.objectStore('notes').add({ title, description, date });
+    const id = await tx
+      .objectStore(STORE_NAME)
+      .add({ title, description, date });
     return id;
   } catch (e) {
     alert(`Something went wrong! ${e.message}`);
@@ -43,8 +45,8 @@ async function addNote({ title, description, date }) {
 
 async function deleteNote(id) {
   try {
-    const tx = db.transaction('notes', 'readwrite');
-    await tx.objectStore('notes').delete(id);
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    await tx.objectStore(STORE_NAME).delete(id);
     return 200;
   } catch (e) {
     alert(`Something went wrong! ${e.message}`);
@@ -53,41 +55,17 @@ async function deleteNote(id) {
 }
 
 async function editNote(data) {
-  const { id, title, description, date } = data;
-
   try {
-    const tx = db.transaction('notes', 'readwrite');
-    const store = tx.objectStore('notes');
-    const note = await store.put(data, id);
-    console.log('smth==>', note);
+    const tx = db.transaction(STORE_NAME, 'readwrite');
+    const store = tx.objectStore(STORE_NAME);
+    const id = await store.put(data);
+    const note = await store.get(id);
 
-    // await db.put('notes', data, id);
+    return note;
   } catch (e) {
     alert(`Something went wrong! ${e.message}`);
     console.error(e);
   }
 }
-
-// export async function set(key, val) {
-//   return (await dbPromise).put('keyval', val, key);
-// }
-
-// const editNote = async data => {
-//   const { id, title, description, date } = data;
-//   try {
-//     const response = await axios.put(`/apps/${APP_ID}/dtypes/${id}.json`, {
-//       rest_api_key: KEY,
-//       values: {
-//         dcIHZdTmnawzhdKmopW6v6: title,
-//         ddRvJcIJPdUiotomofWR4Q: description,
-//         crWQtcOSnmW40Oh8oyW4j9: date,
-//       },
-//     });
-//     return response?.data?.record;
-//   } catch (e) {
-//     alert(`Something went wrong! ${e.message}`);
-//     console.error(e.message);
-//   }
-// };
 
 export { getNotes, addNote, deleteNote, editNote };

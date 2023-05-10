@@ -9,8 +9,9 @@ axios.defaults.baseURL = 'https://quintadb.com.ua';
 const getNotes = async () => {
   try {
     const response = await axios.get(
-      'https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/entity/afts1egG5nu4kcWPS5nCkz.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2&name_value=1?amp;view=' // TODO this string
+      `/apps/${APP_ID}/dtypes/entity/${ENTITY_ID}.json?rest_api_key=${KEY}&name_value=1?amp;view=`
     );
+
     const formatedNotes = response?.data?.records.map(note =>
       formatIncomingData(note)
     );
@@ -45,7 +46,6 @@ const deleteNote = async id => {
     const response = await axios.delete(
       `/apps/${APP_ID}/dtypes/${id}.json?rest_api_key=${KEY}`
     );
-    // console.log('delete response ==>', response.status);
     return response.status;
   } catch (e) {
     alert(`Something went wrong! ${e.message}`);
