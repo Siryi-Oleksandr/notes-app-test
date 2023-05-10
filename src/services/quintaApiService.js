@@ -9,7 +9,7 @@ axios.defaults.baseURL = 'https://quintadb.com.ua';
 const getNotes = async () => {
   try {
     const response = await axios.get(
-      'https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/entity/afts1egG5nu4kcWPS5nCkz.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2&name_value=1?amp;view='
+      'https://quintadb.com.ua/apps/c0tYlcNSnlW5lcNmkQW4GM/dtypes/entity/afts1egG5nu4kcWPS5nCkz.json?rest_api_key=abDs4qBXjiW5pdSCkRWRX2&name_value=1?amp;view=' // TODO this string
     );
     const formatedNotes = response?.data?.records.map(note =>
       formatIncomingData(note)
