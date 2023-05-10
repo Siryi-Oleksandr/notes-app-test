@@ -28,12 +28,13 @@ function LocaleProvider({ children }) {
 
   useEffect(() => {
     setIsLoading(true);
-    quintaAPI
+    dbAPI
       .getNotes()
       .then(data => {
         if (data.length === 0) {
           setCurrentNote(null);
           setIsEmptyNotes(true);
+          return;
         }
         const allNotes = data.map(note => formatIncomingData(note));
         setNotes(allNotes.sort((a, b) => a.date - b.date));
@@ -55,12 +56,12 @@ function LocaleProvider({ children }) {
   }, [notes]);
 
   const addNote = data => {
-    quintaAPI.addNote(data).then(() => setIsRefreshNotes(new Date()));
+    dbAPI.addNote(data).then(() => setIsRefreshNotes(new Date()));
     setIsAddNote(false); // for close window with add form
   };
 
   const editNote = data => {
-    quintaAPI.editNote(data).then(note => {
+    dbAPI.editNote(data).then(note => {
       const updatedNote = formatIncomingData(note);
       setCurrentNote(updatedNote);
       setIsRefreshNotes(new Date());
@@ -70,7 +71,7 @@ function LocaleProvider({ children }) {
 
   const deleteNote = () => {
     if (window.confirm('Are you sure? Do you want remove note?')) {
-      quintaAPI.deleteNote(currentNote.id).then(status => {
+      dbAPI.deleteNote(currentNote.id).then(status => {
         if (status === 200) {
           setIsRefreshNotes(new Date());
           setCurrentNote(null);
