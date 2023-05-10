@@ -1,12 +1,11 @@
-import localeContext from './localeContext';
 import React, { useEffect, useState } from 'react';
+import localeContext from './localeContext';
 import * as quintaAPI from '../services/quintaApiService';
-import * as indexedAPI from '../services/indexedAPI';
+import * as indexedAPI from '../services/indexedAPIService';
 
 const DB = process.env.REACT_APP_DB ?? 'indexed';
 let dbAPI = indexedAPI;
 
-// TODO logic with change BD
 if (DB.includes('quinta')) {
   console.log('runing quinta DB 😎');
   dbAPI = quintaAPI;

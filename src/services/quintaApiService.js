@@ -6,7 +6,7 @@ const APP_ID = 'c0tYlcNSnlW5lcNmkQW4GM';
 const ENTITY_ID = 'afts1egG5nu4kcWPS5nCkz';
 axios.defaults.baseURL = 'https://quintadb.com.ua';
 
-const getNotes = async () => {
+async function getNotes() {
   try {
     const response = await axios.get(
       `/apps/${APP_ID}/dtypes/entity/${ENTITY_ID}.json?rest_api_key=${KEY}&name_value=1?amp;view=`
@@ -20,9 +20,9 @@ const getNotes = async () => {
     alert(`Something went wrong! ${e.message}`);
     console.error(e.message);
   }
-};
+}
 
-const addNote = async data => {
+async function addNote(data) {
   const { title, description, date } = data;
   try {
     const response = await axios.post(`/apps/${APP_ID}/dtypes.json`, {
@@ -39,9 +39,9 @@ const addNote = async data => {
     alert(`Something went wrong! ${e.message}`);
     console.error(e.message);
   }
-};
+}
 
-const deleteNote = async id => {
+async function deleteNote(id) {
   try {
     const response = await axios.delete(
       `/apps/${APP_ID}/dtypes/${id}.json?rest_api_key=${KEY}`
@@ -51,9 +51,9 @@ const deleteNote = async id => {
     alert(`Something went wrong! ${e.message}`);
     console.error(e.message);
   }
-};
+}
 
-const editNote = async data => {
+async function editNote(data) {
   const { id, title, description, date } = data;
   try {
     const response = await axios.put(`/apps/${APP_ID}/dtypes/${id}.json`, {
@@ -70,6 +70,6 @@ const editNote = async data => {
     alert(`Something went wrong! ${e.message}`);
     console.error(e.message);
   }
-};
+}
 
 export { getNotes, addNote, deleteNote, editNote };
