@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+# User Notes Manager project.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+This is a React application that allows users to create, edit, delete, and
+filter notes. The app uses two databases: indexedDB and Quinta DB.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Table of Contents
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [Installation](#installation)
+- [Features](#features)
+- [Databases](#databases)
+- [Compatibility](#compatibility)
+- [Technologies Used](#technologies)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Installation <a id="installation"></a>
 
-### `npm run build`
+```
+$ git clone https://github.com/Siryi-Oleksandr/notes-app-test.git
+$ cd your-project
+$ npm install
+$ npm start // (will build app use indexedDB as default database)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Windows (cmd.exe)
+$ npm run quinta // (will build app use Quinta database)
+$ npm run indexed // (will build app use indexedDB database)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Linux, macOS (Bash)
+$ npm run quinta:linux // (will build app use Quinta database)
+$ npm run indexed:linux // (will build app use indexedDB database)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Features <a id="features"></a>
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Create notes: Users can create new notes by entering a title and content for
+  the note. The note is saved to the database automatically.
+- Edit notes: Users can edit existing notes by clicking on the note and
+  modifying its title or content. The changes are saved to the database
+  automatically.
+- Delete notes: Users can delete notes by clicking on the delete button above
+  the note. The note is removed from the database.
+- Filter notes: Users can filter their notes by typing a search query into the
+  search bar. The app displays only the notes that match the query.
+- Responsive layout: The app is designed to work on different screen sizes and
+  devices, with a responsive layout that adapts to the user's device.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Databases <a id="databases"></a>
 
-## Learn More
+The app uses two databases to store user notes:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Indexed DB: This is a client-side database that is built into most modern web
+  browsers. It allows the app to store notes locally on the user's device, even
+  when they are offline.
+- Quinta DB: This is a cloud-based database that allows the app to synchronize
+  notes between multiple devices. When a user creates, edits, or deletes a note,
+  the change is saved to Quinta DB and propagated to all other devices that are
+  logged in to the app.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Compatibility <a id="compatibility"></a>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+The user notes manager is designed to be compatible with a wide range of devices
+and screen sizes. The app is optimized for desktop and laptop computers, but it
+can also be used on tablets and smartphones.
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Technologies Used <a id="technologies"></a>
 
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- React
+- indexedDB
+- Quinta DB
+- Axios
+- idb
+- Styled-components
