@@ -7,7 +7,7 @@ import { GrClose } from 'react-icons/gr';
 
 function Sidebar() {
   const L_Context = useContext(localeContext);
-  const { notes } = L_Context;
+  const { notes, isEmptyNotes } = L_Context;
   const [isShowSidebar, setIsShowSidebar] = useState(true);
 
   return (
@@ -25,11 +25,13 @@ function Sidebar() {
           left: isShowSidebar ? 0 : -350,
         }}
       >
-        <ul>
-          {notes.map(note => (
-            <ListItem key={note.id} note={note} />
-          ))}
-        </ul>
+        {!isEmptyNotes && (
+          <ul>
+            {notes.map(note => (
+              <ListItem key={note.id} note={note} />
+            ))}
+          </ul>
+        )}
       </Aside>
     </>
   );

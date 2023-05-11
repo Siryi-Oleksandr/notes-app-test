@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import localeContext from './localeContext';
 import * as quintaAPI from '../services/quintaApiService';
 import * as indexedAPI from '../services/indexedAPIService';
+import { filterList } from '../services/dataService';
 
 const DB = process.env.REACT_APP_DB ?? 'indexed';
 let dbAPI = indexedAPI;
@@ -59,7 +60,6 @@ function LocaleProvider({ children }) {
 
   const editNote = data => {
     dbAPI.editNote(data).then(note => {
-      // const updatedNote = formatIncomingData(note);
       setCurrentNote(note);
       setIsRefreshNotes(new Date());
     });
@@ -94,19 +94,11 @@ function LocaleProvider({ children }) {
     setIsAddNote(false);
   };
 
-  const filterList = notes => {
-    const normalizedFilter = filter.toLocaleLowerCase();
-    const visibleNotes = notes.filter(note =>
-      note.title.toLocaleLowerCase().includes(normalizedFilter)
-    );
-    return visibleNotes;
-  };
-
   return (
     <localeContext.Provider
       value={{
         addNote,
-        notes: filterList(notes),
+        notes: filterList(notes, filter),
         currentNote,
         showNote,
         isAddNote,

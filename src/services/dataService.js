@@ -17,3 +17,11 @@ export function formatIncomingData(data) {
   };
   return formatedNote;
 }
+
+export function filterList(notes, filter) {
+  const normalizedFilter = filter.toLocaleLowerCase();
+  const visibleNotes = notes.filter(note =>
+    note.title.toLocaleLowerCase().includes(normalizedFilter)
+  );
+  return visibleNotes;
+}
